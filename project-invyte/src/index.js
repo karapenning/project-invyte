@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
+import App from './components/App/App';
 import reportWebVitals from './reportWebVitals';
 // Roboto font imports needed for mui components --might not be necessary with changes made in index.html
 import '@fontsource/roboto/300.css';

@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, TextField } from '@mui/material';
-import logo from './logo-icon.png';
+import logo from '../../logo-icon.png';
 import './App.css';
 
 export default class App extends React.Component {
