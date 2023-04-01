@@ -2,6 +2,7 @@ import React from "react";
 import { Button, TextField } from '@mui/material';
 import logo from '../../logo-icon.png';
 import './App.css';
+import EntryPage from '../EntryPage/EntryPage';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -23,12 +24,8 @@ export default class App extends React.Component {
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Let's plan a party!
-          </p>
-          <TextField id="roomCodeInput" label="Enter Room Code Here" variant="outlined" />
-          <Button id="" variant="contained">Start a New Room</Button>
         </header>
+        <EntryPage />
       </div>
     );
   }

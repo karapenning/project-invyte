@@ -1,0 +1,10 @@
+.EntryPage {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.roomCodeInput {
+    padding: 20px;
+}
