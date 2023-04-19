@@ -1,0 +1,32 @@
+.App {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  background-color: #847577;
+  padding: 0;
+  height: 100vh;
+}
+
+.App-logo {
+  height: 100%;
+}
+
+.App-header-large {
+  padding: 10px;
+  height: 50%;
+}
+
+.App-header-small {
+  padding: 5px;
+  height: 10vh;align-items: flex-start;
+  background-color: #847577;
+}
+
+.App-body {
+  padding: 0;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}

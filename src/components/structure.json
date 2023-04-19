@@ -1,0 +1,37 @@
+{
+    "Partydetails": {
+      "PartyName": "skyler's baptism",
+      "Address": "2635 Margarette Ave",
+      "StartTime": "6:00 pm",
+      "StartDate": "17Mar1994",
+      "EndTime": "12:00 pm",
+      "EndDate": "18Mar1994",
+      "Private": "TRUE",
+      "Friggles": "Pets, drugs, hookers, no kids"
+    },
+    "PageDetails": {
+      "PrimaryColor": "Maroon",
+      "PageStyle": "Simple",
+      "SecondaryColor": "Blue"
+    },
+    "ModuleSequence": {
+      "Calendar": {
+        "Order": "1",
+        "Flavor": "Complicated"
+      },
+      "GuestList": {}
+    },
+    "GuestList": {
+      "UniqueNameID": "#48OIJR94",
+      "FullName": "Skyler Newberry",
+      "Going": "Maybe"
+    },
+    "Menu": {
+      "Flavor": "Simple",
+      "Course": {
+        "id": "#0875532",
+        "GeneralName": "BuffDip",
+        "Ingredients": "cream cheese, chicken, cheddar, siracha"
+      }
+    }
+  }
