@@ -1,9 +1,9 @@
 import React from 'react';
-import { Button, Card, Divider, Paper, Typography , TextField     } from '@mui/material';
+import { Button, Card, Divider, Paper, TextField } from '@mui/material';
 import './Board.css';
 
 type BoardProps = {
-    boardId: number;
+    boardId: string;
 };
 
 export interface Event {
@@ -22,15 +22,19 @@ const sampleEvent = {
     dateEnd: new Date('April 13, 2022 22:30:00'),
 }
 
-export const Board = ({ boardId }: BoardProps) => (
+export const New_Board = ({ boardId }: BoardProps) => (
     <Paper className='Board'>
         <div className="Board-main">
-            <TextField>{sampleEvent.title}</TextField>
+        <TextField  helperText="Input your Event Title" required value={sampleEvent.title}  variant='standard' > </TextField>
             <Divider />
             <Card>
                 <div>
                     <b>Address</b>
                     <p>{sampleEvent.address}</p>
+                </div>
+                <div>
+                    <b>ID</b>
+                    <p>{boardId}</p>
                 </div>
                 <div>
                     {sampleEvent.multiDay === true ? (
@@ -48,6 +52,14 @@ export const Board = ({ boardId }: BoardProps) => (
                 </div>
             </Card>
         </div>
-        <Button>Add Something</Button>
+        <Button onClick={() => {SavetoDb();}}>Save to DB</Button>
     </Paper>
 )
+
+
+function SavetoDb() {
+   
+
+
+}
+
