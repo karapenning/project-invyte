@@ -10,6 +10,7 @@ type BoardProps = {
 };
 
 export interface ClientEvent {
+    id: string;
     title: string;
     address?: string;
     multiDay?: boolean;
@@ -18,7 +19,7 @@ export interface ClientEvent {
 }
 
 export const New_Board = ({ boardId }: BoardProps) => {
-    const [clientEvent, setClientEvent] = useState<ClientEvent>({title: '', multiDay: false});
+    const [clientEvent, setClientEvent] = useState<ClientEvent>({id: boardId, title: '', multiDay: false});
     
     const sampleEvent = {
         title: "Dinner Party at Abby's",
@@ -29,21 +30,9 @@ export const New_Board = ({ boardId }: BoardProps) => {
     }
 
     const onInputChange = (id: string, value: any) => {
-        // let x = e;
-        // let y = e.target;
         let x = value;
         setClientEvent({...clientEvent, [id]: value});
     }
-    
-    const clientEventDateTypeChanged = (e: React.FormEvent<HTMLInputElement>) => {
-        //if (e && typeof e.target.value === "string") {
-        //    if (e.target.value.toLowerCase() === "true")
-        //        sampleEvent.multiDay = true;
-        //    else 
-        //        sampleEvent.multiDay = false;
-        //}
-        let x = e;
-    };
 
     async function onSaveToDB () {
         if (!!boardId || boardId === 'na') {
@@ -94,7 +83,7 @@ export const New_Board = ({ boardId }: BoardProps) => {
                     <div>
                         <FormControl>
                             <FormLabel>Event Type</FormLabel>
-                            <RadioGroup row defaultValue={false} onChange={clientEventDateTypeChanged}>
+                            <RadioGroup row defaultValue={false} onChange={(e)=>onInputChange('multiDay', e.target.value)}>
                                 <FormControlLabel value={false} label='Single Day' control={<Radio />}/>
                                 <FormControlLabel value={true} label='Multiple Days' control={<Radio />}/>
                             </RadioGroup>
@@ -110,12 +99,10 @@ export const New_Board = ({ boardId }: BoardProps) => {
                         </div> */}
                         {clientEvent && clientEvent.multiDay === true ? (
                             <>
-                                <b>Dates</b>
                                 <p>{sampleEvent.dateStart.toDateString()} - {sampleEvent.dateEnd.toDateString()}</p>
                             </>
                         ) : (
                             <>
-                                <b>Date</b>
                                 <p>{sampleEvent.dateStart.toDateString()}</p>
                                 <p>{sampleEvent.dateStart.toLocaleTimeString()} - {sampleEvent.dateEnd.toLocaleTimeString()}</p>
                             </>
