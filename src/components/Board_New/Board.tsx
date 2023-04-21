@@ -43,6 +43,16 @@ export const New_Board = ({ boardId }: BoardProps) => {
         let x = e;
     };
 
+    async function onSaveToDB () {
+        if (!!boardId || boardId === 'na') {
+            //create new id here
+        }
+
+        // send id and clientEvent to DB here
+        // change this to format like --> const itembody ='{id:"Heyo","Partydetails": {"PartyName": "skylers baptism","Address": "2635 Margarette Ave"}}'
+        
+    }
+
     return (
         <Paper className='Board'>
             <Card>
@@ -105,7 +115,7 @@ export const New_Board = ({ boardId }: BoardProps) => {
                     </div>
                 </CardContent>
             </Card>
-            <Button onClick={() => {SavetoDb();}}>Save to DB</Button>
+            <Button onClick={onSaveToDB}>Save to DB</Button>
         </Paper>
     );
 }
