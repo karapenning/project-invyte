@@ -4,6 +4,21 @@ import {
     Button, Card, CardContent, FormControl, FormControlLabel, FormLabel, Paper, Radio, RadioGroup, TextField
 } from '@mui/material';
 import './Board.css';
+const CosmosClient = require('@azure/cosmos').CosmosClient
+const config = require('./configDB.js')
+//const url = require('url')
+const endpoint = config.endpoint
+const key = config.key
+const databaseId = config.database.id
+const containerId = config.container.id
+
+const options = {
+  endpoint: endpoint,
+  key: key,
+  userAgentSuffix: 'CosmosDBJavascriptQuickstart'
+};
+
+const client = new CosmosClient(options)
 
 type BoardProps = {
     boardId: string;
@@ -30,38 +45,47 @@ export const New_Board = ({ boardId }: BoardProps) => {
     }
 
     const onInputChange = (id: string, value: any) => {
+        // let x = e;
+        // let y = e.target;
         let x = value;
         setClientEvent({...clientEvent, [id]: value});
     }
-
-    async function onSaveToDB () {
+    
+     function onSaveToDB () {
         if (!!boardId || boardId === 'na') {
             //create new id here
         }
-
+        
         let x = '';
         x = JSON.stringify(clientEvent);
         console.log(x);
 
+        createFamilyItem(clientEvent);
+    }
         // send id and clientEvent to DB here
         // change this to format like --> 
         // const itembody ='{id:"Heyo","Partydetails": {"PartyName": "skylers baptism","Address": "2635 Margarette Ave"}}'
-        
-    }
+
+    async function createFamilyItem(itemBody: any) {
+        const { item } = await client
+          .database(databaseId)
+          .container(containerId)
+          .items.upsert(itemBody)
+      }
 
     return (
         <Paper className='Board'>
             <Card>
                 <CardContent>
                     <div>
-                        <TextField
-                            id='title'
-                            variant="outlined"
-                            label="Event Name"
-                            value={clientEvent.title}
-                            onChange={(e)=>onInputChange('title', e.target.value)}
-                            required
-                        />
+                    <TextField
+                        id='title'
+                        variant="outlined"
+                        label="Event Name"
+                        value={clientEvent.title}
+                        onChange={(e)=>onInputChange('title', e.target.value)}
+                        required
+                    />
                     </div>
                     <div>
                         <TextField
@@ -115,9 +139,3 @@ export const New_Board = ({ boardId }: BoardProps) => {
     );
 }
 
-
-function SavetoDb() {
-   
-
-
-}
