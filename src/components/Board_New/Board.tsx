@@ -1,6 +1,8 @@
 import React from 'react';
 import { useState } from 'react';
-import { Button, Card, CardContent, FormControl, FormControlLabel, FormLabel, Paper, Radio, RadioGroup, TextField } from '@mui/material';
+import { 
+    Button, Card, CardContent, FormControl, FormControlLabel, FormLabel, Paper, Radio, RadioGroup, TextField
+} from '@mui/material';
 import './Board.css';
 
 type BoardProps = {
@@ -48,8 +50,13 @@ export const New_Board = ({ boardId }: BoardProps) => {
             //create new id here
         }
 
+        let x = '';
+        x = JSON.stringify(clientEvent);
+        console.log(x);
+
         // send id and clientEvent to DB here
-        // change this to format like --> const itembody ='{id:"Heyo","Partydetails": {"PartyName": "skylers baptism","Address": "2635 Margarette Ave"}}'
+        // change this to format like --> 
+        // const itembody ='{id:"Heyo","Partydetails": {"PartyName": "skylers baptism","Address": "2635 Margarette Ave"}}'
         
     }
 
@@ -58,14 +65,14 @@ export const New_Board = ({ boardId }: BoardProps) => {
             <Card>
                 <CardContent>
                     <div>
-                    <TextField
-                        id='title'
-                        variant="outlined"
-                        label="Event Name"
-                        value={clientEvent.title}
-                        required
-                        onChange={(e)=>onInputChange('title', e.target.value)}
-                    />
+                        <TextField
+                            id='title'
+                            variant="outlined"
+                            label="Event Name"
+                            value={clientEvent.title}
+                            onChange={(e)=>onInputChange('title', e.target.value)}
+                            required
+                        />
                     </div>
                     <div>
                         <TextField
@@ -73,6 +80,7 @@ export const New_Board = ({ boardId }: BoardProps) => {
                             variant="outlined"
                             label="Address"
                             value={clientEvent.address}
+                            onChange={(e)=>onInputChange('address', e.target.value)}
                         />
                     </div>
                     <div>
