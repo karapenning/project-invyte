@@ -6,6 +6,7 @@ import { Button } from '@mui/material';
 // import NavPage from './components/NavPage/NavPage';
 import { Board } from './components/Board/Board';
 import { New_Board } from './components/Board_New/Board';
+import {Admin_Board } from './components/Admin/Board';
 import { get } from 'http';
 import { randomInt } from 'crypto';
 import { create } from 'domain';
@@ -40,6 +41,7 @@ async function readDatabase() {
 
 function App() {
   const [boardId, setBoardId] = useState<string>("NA");
+  const [boardId2, setBoardId2] = useState<string>("NA");
   
   async function createDatabase(dbid: string) {
     const { database } = await client.databases.createIfNotExists({
@@ -67,6 +69,14 @@ function App() {
 
     setBoardId(dbid);
   };
+  const OpenAdminPortal = () => {
+    // ADD IN DB -- generate & set new boardId
+
+
+    let  dbid : string = randomstring.generate();
+
+    setBoardId2(dbid);
+  };
 
   return (
     <div className="App">
@@ -75,9 +85,16 @@ function App() {
       </header>
       <div className="App-body">
         {(!boardId || boardId === "NA") ? (
-          <Button id="" variant="contained" onClick={createBoardClicked}>Create Board</Button>
+          <Button id="create" variant="contained" onClick={createBoardClicked}>Create Board</Button>
         ) : (
           <New_Board boardId={boardId}/>
+        )}
+      </div>
+      <div className="App-body2">
+        {(!boardId2 || boardId2 === "NA") ? (
+          <Button id="admi" variant="contained" onClick={OpenAdminPortal}>Create Board</Button>
+        ) : (
+          <Admin_Board boardId={boardId2}/>
         )}
       </div>
     </div>

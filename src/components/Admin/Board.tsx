@@ -1,10 +1,48 @@
 import React from 'react';
 import { useState } from 'react';
 import { 
-    Button, Card, CardContent, FormControl, FormControlLabel, FormLabel, Paper, Radio, RadioGroup, TextField, Stack, Divider
+    Button, Card, CardContent, FormControl, FormControlLabel, FormLabel, Paper, Radio, RadioGroup, TextField
 } from '@mui/material';
 import './Board.css';
 
+import Box from '@mui/material/Box';
+import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
+
+const columns: GridColDef[] = [
+  { field: 'id', headerName: 'ID', width: 90 },
+  {
+    field: 'roomID',
+    headerName: 'Room ID',
+    width: 150,
+    editable: true,
+  },
+  {
+    field: 'title',
+    headerName: 'Title of Event',
+    width: 150,
+    editable: true,
+  },
+  {
+    field: 'multiDay',
+    headerName: 'Multi-Day',
+    type: 'boolean',
+    width: 110,
+    editable: true,
+  },
+  {
+    field: 'address',
+    headerName: 'Addresss',
+    description: 'This column is the location of event',
+    sortable: false,
+    width: 160,
+    valueGetter: (params: GridValueGetterParams) =>
+      `${params.row.firstName || ''} ${params.row.lastName || ''}`,
+  },
+];
+
+var rows = [
+  { id: 1, roomID: 'test', title: 'skyler bo byler', multiDay: true }
+];
 
 
 
@@ -37,7 +75,7 @@ export interface ClientEvent {
     dateEnd?: Date;
 }
 
-export const New_Board = ({ boardId }: BoardProps) => {
+export const Admin_Board= ({ boardId }: BoardProps) => {
     const [clientEvent, setClientEvent] = useState<ClientEvent>({id: boardId, title: '', multiDay: false});
     
     const sampleEvent = {
@@ -55,18 +93,29 @@ export const New_Board = ({ boardId }: BoardProps) => {
         setClientEvent({...clientEvent, [id]: value});
     }
     
-     function onSaveToDB () {
+     function ReadDB () {
         if (!!boardId || boardId === 'na') {
             //create new id here
         }
         
-        let x = '';
-        x = JSON.stringify(clientEvent);
-        console.log(x);
+        
+       let x =  readContainer();
 
-        createFamilyItem(clientEvent);
+       populateRows(x);
     }
-       
+    async function readContainer() {
+        const { resource: containerDefinition } = await client
+          .database(databaseId)
+          .container(containerId)
+          .read()
+        console.log(`Reading container:\n${containerDefinition.id}\n`)
+      }
+      function populateRows(dataFromContainer: any){
+
+        rows.push(
+            { id: 2, roomID: 'test2', title: 'fe fi no liar', multiDay: false });
+    
+      }
 
     async function createFamilyItem(itemBody: any) {
         const { item } = await client
@@ -76,9 +125,25 @@ export const New_Board = ({ boardId }: BoardProps) => {
       }
 
     return (
-        <Paper className='New_Board'>
+        <Paper className='Board'>
             <Card>
                 <CardContent>
+                <Box sx={{ height: 400, width: '100%' }}>
+      <DataGrid
+        rows={rows}
+        columns={columns}
+        initialState={{
+          pagination: {
+            paginationModel: {
+              pageSize: 5,
+            },
+          },
+        }}
+        pageSizeOptions={[5]}
+        checkboxSelection
+        disableRowSelectionOnClick
+      />
+    </Box>
                     <div>
                     <TextField
                         id='title'
@@ -136,7 +201,7 @@ export const New_Board = ({ boardId }: BoardProps) => {
                     </div>
                 </CardContent>
             </Card>
-            <Button onClick={onSaveToDB}>Save to DB</Button>
+            <Button onClick={ReadDB}>Save to DB</Button>
         </Paper>
     );
 }
